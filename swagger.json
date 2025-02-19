@@ -1,0 +1,547 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "Sampo AI API", "version": "1.0.0" },
+  "paths": {
+    "/api/prices/upload": {
+      "post": {
+        "summary": "Upload Prices",
+        "description": "Uploads prices to the database.\n\n### Parameters:\n- `pricing_history`: A `PricingHistory` object containing price history data.\n- `shop_id`: An integer representing the shop ID.\n\n### Returns:\n- A JSON response indicating success or failure.\n\n### Example Input:\n```json\n{\n    \"pricing_history\": [\n        {\n            \"product_id\": \"1\",\n            \"price_changes\": [\n                {\n                    \"timestamp\": \"2004-08-08 14:25:45\",\n                    \"regular_price\": \"1\",\n                    \"sale_price\": \"1\",\n                    \"currency\": \"USD\",\n                    \"price_id\": 1\n                }\n            ]\n        }\n    ]\n}\n```",
+        "operationId": "upload_prices_api_prices_upload_post",
+        "parameters": [
+          {
+            "name": "shop_id",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "integer", "title": "Shop Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PricingHistory" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/orders/upload": {
+      "post": {
+        "summary": "Upload Orders",
+        "description": "Uploads orders to the database.\n\n### Parameters:\n- `order_upload`: An `OrderUpload` object containing order data.\n- `shop_id`: An integer representing the shop ID.\n\n### Returns:\n- A JSON response indicating success or failure.\n\n### Example Input:\n```json\n{\n    \"orders\": [\n        {\n            \"id\": \"1\",\n            \"customer_id\": \"1\",\n            \"status\": \"completed\",\n            \"created_at\": \"2004-08-08 14:25:45\",\n            \"updated_at\": \"2004-08-08 14:25:45\",\n            \"completed_at\": \"2004-08-08 14:25:45\",\n            \"paid_at\": \"2004-08-08 14:25:45\",\n            \"total\": \"1\",\n            \"currency\": \"USD\",\n            \"payment_method\": \"cart\",\n            \"billing\": {\n                \"first_name\": \"l\",\n                \"last_name\": \"l\",\n                \"company\": \"\",\n                \"address_1\": \"l\",\n                \"address_2\": \"\",\n                \"phone\": \"1231\",\n                \"city\": \"l\",\n                \"state\": \"l\",\n                \"postcode\": \"l\",\n                \"country\": \"l\",\n                \"email\": \"k@k.pl\"\n            },\n            \"shipping\": {\n                \"first_name\": \"l\",\n                \"last_name\": \"l\",\n                \"company\": \"\",\n                \"address_1\": \"l\",\n                \"phone\": \"1231\",\n                \"address_2\": \"\",\n                \"city\": \"l\",\n                \"state\": \"l\",\n                \"postcode\": \"l\",\n                \"country\": \"l\"\n            },\n            \"line_items\": [\n                {\n                    \"id\": 1,\n                    \"name\": \"product1\",\n                    \"product_id\": 1,\n                    \"quantity\": 1,\n                    \"price\": \"1\",\n                    \"subtotal\": \"1\",\n                    \"total\": \"1\",\n                    \"price_id\": 1\n                }\n            ]\n        }\n    ]\n}\n```",
+        "operationId": "upload_orders_api_orders_upload_post",
+        "parameters": [
+          {
+            "name": "shop_id",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "integer", "title": "Shop Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/OrderUpload" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/customers/upload": {
+      "post": {
+        "summary": "Upload Customers",
+        "description": "Uploads customers to the database.\n\n### Parameters:\n- `customer_upload`: A `CustomerUpload` object containing customer data.\n- `shop_id`: An integer representing the shop ID.\n\n### Returns:\n- A JSON response indicating success or failure.\n\n### Example Input:\n```json\n{\n    \"customers\": [\n        {\n            \"id\": \"1\",\n            \"email\": \"l@l.com\",\n            \"first_name\": \"l\",\n            \"last_name\": \"l\",\n            \"username\": \"l\",\n            \"created_at\": \"2004-08-08 14:25:45\",\n            \"updated_at\": \"2004-08-08 14:25:45\",\n            \"billing\": {\n                \"first_name\": \"l\",\n                \"last_name\": \"l\",\n                \"company\": \"\",\n                \"address_1\": \"l\",\n                \"address_2\": \"\",\n                \"city\": \"l\",\n                \"state\": \"l\",\n                \"postcode\": \"l\",\n                \"country\": \"l\",\n                \"email\": \"l@l.com\"\n            },\n            \"shipping\": {\n                \"first_name\": \"l\",\n                \"last_name\": \"l\",\n                \"company\": \"\",\n                \"address_1\": \"l\",\n                \"address_2\": \"\",\n                \"city\": \"l\",\n                \"state\": \"l\",\n                \"postcode\": \"l\",\n                \"country\": \"l\"\n            }\n        }\n    ]\n}\n```",
+        "operationId": "upload_customers_api_customers_upload_post",
+        "parameters": [
+          {
+            "name": "shop_id",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "integer", "title": "Shop Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CustomerUpload" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/products/upload": {
+      "post": {
+        "summary": "Upload Products",
+        "description": "Uploads products to the database.\n\n### Parameters:\n- `products_upload`: A `ProductsUpload` object containing product data.\n- `shop_id`: An integer representing the shop ID.\n\n### Returns:\n- A JSON response indicating success or failure.\n\n### Example Input:\n```json\n{\n    \"products\": [\n        {\n            \"id\": 1,\n            \"name\": \"product1\",\n            \"slug\": \"product1\",\n            \"type\": \"simple\",\n            \"status\": \"publish\",\n            \"created_at\": \"2004-08-08 14:25:45\",\n            \"updated_at\": \"2004-08-08 14:25:45\",\n            \"short_description\": \"short description\",\n            \"sku\": \"sku\",\n            \"cogs\": 1.0,\n            \"stock_status\": \"instock\",\n            \"stock_quantity\": 1,\n            \"parent_id\": null,\n            \"description\": \"description\",\n            \"categories\": [\n                {\n                    \"id\": 1,\n                    \"name\": \"category1\",\n                    \"slug\": \"category1\"\n                }\n            ],\n            \"attributes\": [\n                {\n                    \"name\": \"attribute1\",\n                    \"option\": \"option1\"\n                }\n            ]\n        }\n    ]\n}\n```",
+        "operationId": "upload_products_api_products_upload_post",
+        "parameters": [
+          {
+            "name": "shop_id",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "integer", "title": "Shop Id" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ProductsUpload" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Address": {
+        "properties": {
+          "first_name": { "type": "string", "title": "First Name" },
+          "last_name": { "type": "string", "title": "Last Name" },
+          "email": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Email"
+          },
+          "phone": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Phone"
+          },
+          "address_1": { "type": "string", "title": "Address 1" },
+          "address_2": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Address 2"
+          },
+          "city": { "type": "string", "title": "City" },
+          "state": { "type": "string", "title": "State" },
+          "postcode": { "type": "string", "title": "Postcode" },
+          "country": { "type": "string", "title": "Country" }
+        },
+        "type": "object",
+        "required": [
+          "first_name",
+          "last_name",
+          "address_1",
+          "address_2",
+          "city",
+          "state",
+          "postcode",
+          "country"
+        ],
+        "title": "Address"
+      },
+      "Attribute": {
+        "properties": {
+          "name": { "type": "string", "title": "Name" },
+          "option": { "type": "string", "title": "Option" }
+        },
+        "type": "object",
+        "required": ["name", "option"],
+        "title": "Attribute"
+      },
+      "Category": {
+        "properties": {
+          "id": { "type": "integer", "title": "Id" },
+          "name": { "type": "string", "title": "Name" },
+          "slug": { "type": "string", "title": "Slug" }
+        },
+        "type": "object",
+        "required": ["id", "name", "slug"],
+        "title": "Category"
+      },
+      "Customer": {
+        "properties": {
+          "id": { "type": "string", "title": "Id" },
+          "email": { "type": "string", "title": "Email" },
+          "first_name": { "type": "string", "title": "First Name" },
+          "last_name": { "type": "string", "title": "Last Name" },
+          "username": { "type": "string", "title": "Username" },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "billing": { "$ref": "#/components/schemas/Address" },
+          "shipping": { "$ref": "#/components/schemas/Address" },
+          "meta_data": {
+            "anyOf": [
+              {
+                "items": { "$ref": "#/components/schemas/MetaData" },
+                "type": "array"
+              },
+              { "type": "null" }
+            ],
+            "title": "Meta Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "first_name",
+          "last_name",
+          "username",
+          "created_at",
+          "updated_at",
+          "billing",
+          "shipping"
+        ],
+        "title": "Customer"
+      },
+      "CustomerUpload": {
+        "properties": {
+          "customers": {
+            "items": { "$ref": "#/components/schemas/Customer" },
+            "type": "array",
+            "title": "Customers"
+          }
+        },
+        "type": "object",
+        "required": ["customers"],
+        "title": "CustomerUpload"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "LineItem": {
+        "properties": {
+          "id": { "type": "integer", "title": "Id" },
+          "name": { "type": "string", "title": "Name" },
+          "product_id": { "type": "integer", "title": "Product Id" },
+          "quantity": { "type": "integer", "title": "Quantity" },
+          "price": { "type": "string", "title": "Price" },
+          "subtotal": { "type": "string", "title": "Subtotal" },
+          "total": { "type": "string", "title": "Total" },
+          "price_id": { "type": "integer", "title": "Price Id" }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "product_id",
+          "quantity",
+          "price",
+          "subtotal",
+          "total",
+          "price_id"
+        ],
+        "title": "LineItem"
+      },
+      "MetaData": {
+        "properties": {
+          "key": { "type": "string", "title": "Key" },
+          "value": { "type": "string", "title": "Value" }
+        },
+        "type": "object",
+        "required": ["key", "value"],
+        "title": "MetaData"
+      },
+      "Order": {
+        "properties": {
+          "id": { "type": "string", "title": "Id" },
+          "customer_id": { "type": "string", "title": "Customer Id" },
+          "status": { "type": "string", "title": "Status" },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "completed_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Completed At"
+          },
+          "paid_at": {
+            "anyOf": [
+              { "type": "string", "format": "date-time" },
+              { "type": "null" }
+            ],
+            "title": "Paid At"
+          },
+          "total": { "type": "string", "title": "Total" },
+          "currency": { "type": "string", "title": "Currency" },
+          "payment_method": { "type": "string", "title": "Payment Method" },
+          "billing": { "$ref": "#/components/schemas/Address" },
+          "shipping": { "$ref": "#/components/schemas/Address" },
+          "line_items": {
+            "items": { "$ref": "#/components/schemas/LineItem" },
+            "type": "array",
+            "title": "Line Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "customer_id",
+          "status",
+          "created_at",
+          "updated_at",
+          "completed_at",
+          "paid_at",
+          "total",
+          "currency",
+          "payment_method",
+          "billing",
+          "shipping",
+          "line_items"
+        ],
+        "title": "Order"
+      },
+      "OrderUpload": {
+        "properties": {
+          "orders": {
+            "items": { "$ref": "#/components/schemas/Order" },
+            "type": "array",
+            "title": "Orders"
+          },
+          "meta_data": {
+            "anyOf": [
+              {
+                "items": { "$ref": "#/components/schemas/MetaData" },
+                "type": "array"
+              },
+              { "type": "null" }
+            ],
+            "title": "Meta Data"
+          }
+        },
+        "type": "object",
+        "required": ["orders"],
+        "title": "OrderUpload"
+      },
+      "PriceChange": {
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp"
+          },
+          "regular_price": { "type": "string", "title": "Regular Price" },
+          "sale_price": { "type": "string", "title": "Sale Price" },
+          "currency": { "type": "string", "title": "Currency" },
+          "price_id": { "type": "integer", "title": "Price Id" }
+        },
+        "type": "object",
+        "required": [
+          "timestamp",
+          "regular_price",
+          "sale_price",
+          "currency",
+          "price_id"
+        ],
+        "title": "PriceChange"
+      },
+      "PricingHistory": {
+        "properties": {
+          "pricing_history": {
+            "items": { "$ref": "#/components/schemas/PricingHistoryItem" },
+            "type": "array",
+            "title": "Pricing History"
+          }
+        },
+        "type": "object",
+        "required": ["pricing_history"],
+        "title": "PricingHistory"
+      },
+      "PricingHistoryItem": {
+        "properties": {
+          "product_id": { "title": "Product Id" },
+          "price_changes": {
+            "items": { "$ref": "#/components/schemas/PriceChange" },
+            "type": "array",
+            "title": "Price Changes"
+          }
+        },
+        "type": "object",
+        "required": ["product_id", "price_changes"],
+        "title": "PricingHistoryItem"
+      },
+      "Product": {
+        "properties": {
+          "id": { "type": "integer", "title": "Id" },
+          "name": { "type": "string", "title": "Name" },
+          "slug": { "type": "string", "title": "Slug" },
+          "type": { "type": "string", "title": "Type" },
+          "status": { "type": "string", "title": "Status" },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Description"
+          },
+          "short_description": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Short Description"
+          },
+          "sku": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Sku"
+          },
+          "stock_quantity": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Stock Quantity"
+          },
+          "cogs": {
+            "anyOf": [{ "type": "number" }, { "type": "null" }],
+            "title": "Cogs"
+          },
+          "stock_status": { "type": "string", "title": "Stock Status" },
+          "parent_id": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Parent Id"
+          },
+          "categories": {
+            "items": { "$ref": "#/components/schemas/Category" },
+            "type": "array",
+            "title": "Categories"
+          },
+          "attributes": {
+            "anyOf": [
+              {
+                "items": { "$ref": "#/components/schemas/Attribute" },
+                "type": "array"
+              },
+              { "type": "null" }
+            ],
+            "title": "Attributes"
+          },
+          "meta_data": {
+            "anyOf": [
+              {
+                "items": { "$ref": "#/components/schemas/MetaData" },
+                "type": "array"
+              },
+              { "type": "null" }
+            ],
+            "title": "Meta Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "slug",
+          "type",
+          "status",
+          "created_at",
+          "updated_at",
+          "stock_status",
+          "categories"
+        ],
+        "title": "Product"
+      },
+      "ProductsUpload": {
+        "properties": {
+          "products": {
+            "items": { "$ref": "#/components/schemas/Product" },
+            "type": "array",
+            "title": "Products"
+          }
+        },
+        "type": "object",
+        "required": ["products"],
+        "title": "ProductsUpload"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": { "type": "string", "title": "Message" },
+          "type": { "type": "string", "title": "Error Type" }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
